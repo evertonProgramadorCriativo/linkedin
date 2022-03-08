@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import Leftside from "./LeftSide";
+import Main from "./Main";
+import Rightside from "./Rightside";
 
 const Home = (props) => {
     return (
@@ -9,6 +12,11 @@ const Home = (props) => {
                     moving.
                 </p>
             </Section>
+            <Layout>
+                <Leftside />
+                <Main />
+                <Rightside />
+            </Layout>
         </Container>
     );
 }
@@ -54,5 +62,19 @@ p {
 }
 `;
 
+const Layout = styled.div`
+display: grid;
+grid-template-rows:" leftSide Main RightSide" ;
+grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300, 7fr) ;
+column-gap: 25px;
+row-gap:25px ;
+margin: 25px 0 ;
+
+@media(max-width: 768px) {
+    display:flex ;
+    flex-direction: column ;
+    padding:0 5px ;
+}
+`;
 
 export default Home;
