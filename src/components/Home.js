@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Leftside from "./LeftSide";
+import Leftside from "./Leftside";
 import Main from "./Main";
 import Rightside from "./Rightside";
 
@@ -64,8 +64,8 @@ p {
 
 const Layout = styled.div`
 display: grid;
-grid-template-rows:" leftSide Main RightSide" ;
-grid-template-columns: minmax(0, 5fr) minmax(0, 12fr) minmax(300, 7fr) ;
+grid-template-areas:"leftside  main  rightside";
+grid-template-columns: minmax(0px, 5fr) minmax(0px, 12fr) minmax(300px, 7fr) ;
 column-gap: 25px;
 row-gap:25px ;
 margin: 25px 0 ;
