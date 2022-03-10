@@ -45,39 +45,39 @@ const Main = (props) => {
                 <Description>Description</Description>
                 <ShareImg>
                     <a>
-                        <img src="/images/shared-image.jpg" alt="" />
+                        <img src="/images/praia2.jpg" alt="" />
                     </a>
                 </ShareImg>
                 <SocialCounts>
                     <li>
                         <button>
-                            <img src="" alt="" />
-                            <img src="" alt="" />
+                            <img src="./images/gostar.png" alt="" />
+                            <img src="./images/chat.png" alt="" />
                             <span>75</span>
                         </button>
 
                     </li>
                     <li>
-                        <a>2 comments</a>
+                        <a>10 comments</a>
                     </li>
                 </SocialCounts>
                 <SocialActions>
                     <button>
-                        <img src="" alt="" />
+                        <img src="./images/gostar.png" alt="" />
                         <span>Like</span>
                     </button>
                     <button>
-                        <img src="" alt="" />
+                        <img src="./images/chat.png" alt="" />
                         <span>Comments</span>
                     </button>
 
                     <button>
-                        <img src="" alt="" />
+                        <img src="./images/share.png" alt="" />
                         <span>Share</span>
                     </button>
 
                     <button>
-                        <img src="" alt="" />
+                        <img src="./images/send.png" alt="" />
                         <span>Send</span>
                     </button>
                 </SocialActions>
@@ -258,6 +258,12 @@ const SocialCounts = styled.div`
    font-size: 12px ;
    button {
        display: flex ;
+
+       img {
+           width: 16px ;
+           margin: 0 2px ;
+
+       }
    }
 }
 `;
@@ -276,10 +282,19 @@ button{
     padding:8px ;
     color:#0a66c2 ;
 
-    @media(min-width: 768px) {
+    img {
+        width: 16px ;
+        margin-right: 2px;
+    }
+
+    @media(max-width: 768px) {
         span{
-            margin-left: 8px ;
+            margin-left: 2px ;
         }
+        
+    img {
+        width: 20px ;
+    }
     }
 }
 `;
