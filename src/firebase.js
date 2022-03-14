@@ -1,5 +1,7 @@
-import firabase from "firabase"
-
+import firebase from "firebase/compat/app"
+import "firebase/compat/auth"
+import "firebase/compat/firestore"
+import "firebase/compat/storage"
 const firebaseConfig = {
     apiKey: "AIzaSyDk0FMdQ8y_JtnpbgrI22mXnLKk9To44RY",
     authDomain: "linkedin-d95f2.firebaseapp.com",
@@ -9,12 +11,16 @@ const firebaseConfig = {
     appId: "1:251965596526:web:ad77e7805ab5565f2b177f"
   };
 
-  // Initialize Firebase
-const firebaseApp = firabase.initializeApp(firebaseConfig);
-const db = firebaseApp.firestore();
-const auth = firabase.auth();
-const provider = new  firabase.auth.GoogleAuthProvider();
-const storage = firabase.storage();
+  const firebaseApp = firebase.initializeApp(firebaseConfig);
+  const db = firebaseApp.firestore();
+  const auth = firebase.auth();
+  const provider = new  firebase.auth.GoogleAuthProvider();
+ const storage = firebase.storage();
+ 
+   
 
-export {auth, provider, storage };
+ 
+ 
+
+export { auth, provider, storage}
 export default db;
