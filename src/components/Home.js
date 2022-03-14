@@ -57,7 +57,17 @@ p {
 
     p {
         color: red;
-        font-size: 100px;
+        font-size: 16px;
+        padding: 10px 0px ;
+    }
+}
+@media (max-width: 500px){
+    
+
+    p {
+         
+        font-size: 10px;
+         
     }
 }
 `;

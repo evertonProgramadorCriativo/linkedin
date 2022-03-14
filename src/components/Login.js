@@ -1,10 +1,12 @@
 import styled from "styled-components"
  import { connect } from "react-redux"
  import { signInAPI } from "../actions";
+ import { Navigate } from "react-router"
 
 const Login = (props) => {
     return ( 
         <Container>
+            {props.user && <Navigate to="/home" />}
             <Nav>
                 <a href="/">
                     <img src="/images/login-logo.svg" />
@@ -169,7 +171,9 @@ color: rgba( 0, 0, 0, 0.6);
 `;
 
 const mapStateToProps = (state) => {
-    return {};
+    return {
+        user: state.userState.user,
+    };
 }
 
 const mapDispatchToProps = (dispatch) => ({
