@@ -11,7 +11,7 @@ export  function signInAPI(){
         auth
         .signInWithPopup(provider)
         .then((payload) => {
-                    // console.log(payload.user);
+                     console.log(payload)
                    dispatch(setUser(payload.user))
         })
         .catch((error) => alert(error.message));
