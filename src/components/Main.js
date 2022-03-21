@@ -1,10 +1,15 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PostModal from "./PostModal";
-import { connect } from "react-redux"
+import { connect } from "react-redux";
+import { getArticlesAPI } from "../actions";
 
 const Main = (props) => {
   const [showModal, setShowModal] = useState("close");
+
+  useEffect(() => {
+    props.getArticles();
+  }, []);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -12,113 +17,136 @@ const Main = (props) => {
       return;
     }
     switch (showModal) {
-      case 'open':
-        setShowModal('close');
+      case "open":
+        setShowModal("close");
         break;
-      case 'close':
-        setShowModal('open');
+      case "close":
+        setShowModal("open");
         break;
       default:
-        setShowModal('close');
+        setShowModal("close");
         break;
     }
   };
-
+console.log("artigo : " + props.payload)
   return (
-    <Container>
-      <ShareBox>
-        Share
-        <div>
-        {props.user && props.user.photoURL ? <img src={props.user.photoURL} alt="" /> :
-                                     <img src="/images/user.svg" alt="" />}
-          <button onClick={handleClick}>Start a post</button>
-        </div>
-        <div>
-          <button>
-            <img src="/images/photo.svg" alt="" />
-            <span>Photo</span>
-          </button>
-          <button>
-            <img src="/images/video.svg" alt="" />
-            <span>video</span>
-          </button>
-
-          <button>
-            <img src="/images/calendar--icon2.png" alt="" />
-            <span>Event</span>
-          </button>
-          <button>
-            <img src="/images/iconeArtigo2.svg" alt="" />
-            <span>Write article</span>
-          </button>
-        </div>
-      </ShareBox>
-      <div>
-        <Article>
-          <SharedActor>
-            <a>
-            {props.user && props.user.photoURL ? <img src={props.user.photoURL} alt="" /> :
-                                     <img src="/images/user.svg" alt="" />}
-              <div>
-                <span>
-                   
-                  {props.user && props.user.displayName ? <span>{props.user.displayName} </span> :
-                                     <span>Title </span>}
-                  </span>
-                <span>Info</span>
-               
-                <span> 
-                {props.user && props.user.metadata.lastSignInTime ? <span>{props.user.metadata.lastSignInTime} </span> :
-                                     <span>Title </span>}
-                </span>
-              </div>
-            </a>
-            <button>
-              <img src="/images/ellipsis.svg" alt="" />
-            </button>
-          </SharedActor>
-          <Description>Description</Description>
-          <ShareImg>
-            <a>
-              <img src="/images/praia2.jpg" alt="" />
-            </a>
-          </ShareImg>
-          <SocialCounts>
-            <li>
-              <button>
-                <img src="./images/gostar.png" alt="" />
-                <img src="./images/chat.png" alt="" />
-                <span>75</span>
+    <React.Fragment>
+      {props.articles.length == 0 ? (
+        <p>There are no Articles</p>
+      ) : (
+        <Container>
+          <ShareBox>
+            <div>
+              {props.user && props.user.photoURL ? (
+                <img src={props.user.photoURL} alt="" />
+              ) : (
+                <img src="./images/user.svg" alt="" />
+              )}
+              <button
+                onClick={handleClick}
+                disabled={props.loading ? true : false}
+              >
+                Start a post
               </button>
-            </li>
-            <li>
-              <a>10 comments</a>
-            </li>
-          </SocialCounts>
-          <SocialActions>
-            <button>
-              <img src="./images/gostar.png" alt="" />
-              <span>Like</span>
-            </button>
-            <button>
-              <img src="./images/chat.png" alt="" />
-              <span>Comments</span>
-            </button>
+            </div>
+            <div>
+              <button>
+                <img src="./images/photo.svg" alt="" />
+                <span>Photo</span>
+              </button>
+              <button>
+                <img src="./images/video.svg" alt="" />
+                <span>video</span>
+              </button>
 
-            <button>
-              <img src="./images/share.png" alt="" />
-              <span>Share</span>
-            </button>
+              <button>
+                <img src="./images/calendar--icon2.png" alt="" />
+                <span>Event</span>
+              </button>
+              <button>
+                <img src="./images/iconeArtigo2.svg" alt="" />
+                <span>Write article</span>
+              </button>
+            </div>
+          </ShareBox>
+          <Content>
+            {props.loading && <img src="./images/loading.svg" />}
+            {props.articles.length > 0 &&
+              props.articles.map((article, key) => (
+                <Article key={key}>
+                  <SharedActor>
+                    <a>
+                      
+                        <img src={article.actor.image} alt="" />
+                     
+                      <div>
+                        <span>
+                    
+                            <span>{article.actor.title} </span>
+                          
+                        </span>
+                        <span>
+                          
+                            <span>{article.actor.description} </span>
+                         
+                        </span>
+                        <span>
+                          
+                            <span>{article.actor.date.toDate().toLocaleDateString()} </span>
+                         
+                        </span>
+                         
+                      </div>
+                    </a>
+                    <button>
+                      <img src="/images/ellipsis.svg" alt="" />
+                    </button>
+                  </SharedActor>
+                  <Description> {article.description}</Description>
+                  <ShareImg>
+                    <a>
+                      <img src="/images/praia2.jpg" alt="" />
+                    </a>
+                  </ShareImg>
+                  <SocialCounts>
+                    <li>
+                      <button>
+                        <img src="./images/gostar.png" alt="" />
+                        <img src="./images/chat.png" alt="" />
+                        <span>75</span>
+                      </button>
+                    </li>
+                    <li>
+                      <a>10 comments</a>
+                    </li>
+                  </SocialCounts>
+                  <SocialActions>
+                    <button>
+                      <img src="./images/gostar.png" alt="" />
+                      <span>Like</span>
+                    </button>
+                    <button>
+                      <img src="./images/chat.png" alt="" />
+                      <span>Comments</span>
+                    </button>
 
-            <button>
-              <img src="./images/send.png" alt="" />
-              <span>Send</span>
-            </button>
-          </SocialActions>
-        </Article>
-      </div>
-      <PostModal showModal={showModal} handleClick={handleClick}/>
-    </Container>
+                    <button>
+                      <img src="./images/share.png" alt="" />
+                      <span>Share</span>
+                    </button>
+
+                    <button>
+                      <img src="./images/send.png" alt="" />
+                      <span>Send</span>
+                    </button>
+                  </SocialActions>
+                </Article>
+              ))}
+          </Content>
+          <PostModal showModal={showModal} handleClick={handleClick} />
+        </Container>
+      )}
+    </React.Fragment>
   );
 };
 
@@ -331,13 +359,24 @@ const SocialActions = styled.div`
     }
   }
 `;
+
+const Content = styled.div`
+  text-align: center;
+  & > img {
+    width: 30px;
+  }
+`;
+
 const mapStateToProps = (state) => {
   return {
-      user: state.userState.user,
-  }
-}
+    user: state.userState.user,
+    articles: state.articleState.articles,
+    loading: state.articleState.loading,
+  };
+};
 
-const mapDispatchToProps = (dispatch) =>  ({ });
-
+const mapDispatchToProps = (dispatch) => ({
+  getArticles: () => dispatch(getArticlesAPI()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
