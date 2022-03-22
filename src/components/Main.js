@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PostModal from "./PostModal";
 import { connect } from "react-redux";
 import { getArticlesAPI } from "../actions";
+import ReactPlayer from "react-player";
 
 const Main = (props) => {
   const [showModal, setShowModal] = useState("close");
@@ -31,7 +32,7 @@ const Main = (props) => {
 console.log("artigo : " + props.payload)
   return (
     <React.Fragment>
-      {props.articles.length == 0 ? (
+      {props.articles.length == 0  ? (
         <p>There are no Articles</p>
       ) : (
         <Container>
@@ -105,7 +106,12 @@ console.log("artigo : " + props.payload)
                   <Description> {article.description}</Description>
                   <ShareImg>
                     <a>
-                      <img src="/images/praia2.jpg" alt="" />
+                       {
+                         !article.shareImg && article.video ? 
+                         (<ReactPlayer width={"100%"} url={article.video} /> )
+                         :
+                        ( article.sharedImg && <img src={article.sharedImg} />)
+                       }
                     </a>
                   </ShareImg>
                   <SocialCounts>
@@ -117,7 +123,7 @@ console.log("artigo : " + props.payload)
                       </button>
                     </li>
                     <li>
-                      <a>10 comments</a>
+                      <a> {article.comments}</a>
                     </li>
                   </SocialCounts>
                   <SocialActions>
@@ -320,6 +326,8 @@ const SocialCounts = styled.div`
     font-size: 12px;
     button {
       display: flex;
+      border: none;
+      background-color: white;
 
       img {
         width: 16px;
@@ -342,6 +350,9 @@ const SocialActions = styled.div`
     align-items: center;
     padding: 8px;
     color: #0a66c2;
+    border: none;
+      background-color: white;
+
 
     img {
       width: 26px;
