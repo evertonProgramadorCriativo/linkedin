@@ -5,14 +5,19 @@ import "firebase/compat/storage"
  
  
 
+
+
+
+
+
  
 const firebaseConfig = {
-  apiKey : "AIzaSyDk0FMdQ8y_JtnpbgrI22mXnLKk9To44RY" ,
-  authDomain : "linkedin-d95f2.firebaseapp.com" ,
-  projectId : "linkedin-d95f2" ,
-  storageBucket : "linkedin-d95f2.appspot.com" ,
-  messagingSenderId : "251965596526" ,
-  appId : "1:251965596526:web:ad77e7805ab5565f2b177f"
+  apiKey : process.env.REACT_APP_FIREBASE_API_KEY  ,
+  authDomain : process.env.REACT_APP_FIREBASE_AUTH_DOMAIN ,
+  projectId : process.env.REACT_APP_FIREBASE_PROJECT_ID ,
+  storageBucket : process.env.REACT_APP_FIREBASE_STORAGE_BUCKET ,
+  messagingSenderId : process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID ,
+  appId : process.env.REACT_APP_APP_FIREBASE_ID
    
   };
  
